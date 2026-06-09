@@ -34,17 +34,14 @@
                 </a>
 
                 <!-- Right Navigation Area -->
-                <div class="flex items-center gap-5">
+                <div class="flex justify-center items-center gap-5">
                     @auth
                         <a href="{{ route('history.index') }}" class="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-primary-600 transition-colors">
                             History
                         </a>
-                        <span class="text-xs font-mono uppercase text-slate-400 hidden sm:inline">
-                            [{{ Auth::user()->name }}]
-                        </span>
                         <form action="{{ route('logout') }}" method="POST" class="inline">
                             @csrf
-                            <button type="submit" class="text-xs font-mono uppercase tracking-wider text-slate-400 hover:text-rose-550 dark:hover:text-rose-450 transition-colors cursor-pointer">
+                            <button type="submit" class="text-xs font-mono uppercase tracking-wider text-slate-400 hover:text-rose-500 dark:hover:text-rose-450 transition-colors cursor-pointer">
                                 Logout
                             </button>
                         </form>
