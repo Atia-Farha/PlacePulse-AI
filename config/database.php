@@ -153,6 +153,11 @@ return [
             'persistent' => env('REDIS_PERSISTENT', false),
         ],
 
+        //
+        // default — used for general Redis operations and sessions.
+        // When REDIS_URL is a rediss:// Upstash URL, predis parses it
+        // automatically and the ssl block enables TLS certificate verification.
+        //
         'default' => [
             'url' => env('REDIS_URL'),
             'host' => env('REDIS_HOST', '127.0.0.1'),
@@ -164,19 +169,33 @@ return [
             'backoff_algorithm' => env('REDIS_BACKOFF_ALGORITHM', 'decorrelated_jitter'),
             'backoff_base' => env('REDIS_BACKOFF_BASE', 100),
             'backoff_cap' => env('REDIS_BACKOFF_CAP', 1000),
+            // TLS options for Upstash (predis only; ignored when REDIS_URL is not rediss://)
+            'ssl' => [
+                'verify_peer' => env('REDIS_TLS_VERIFY_PEER', true),
+                'verify_peer_name' => env('REDIS_TLS_VERIFY_PEER_NAME', true),
+            ],
         ],
 
+        //
+        // cache — dedicated connection for the cache store.
+        // Upstash Free allows a single database (DB 0 only), so both
+        // connections share DB 0 and rely on key prefixing for isolation.
+        //
         'cache' => [
             'url' => env('REDIS_URL'),
             'host' => env('REDIS_HOST', '127.0.0.1'),
             'username' => env('REDIS_USERNAME'),
             'password' => env('REDIS_PASSWORD'),
             'port' => env('REDIS_PORT', '6379'),
-            'database' => env('REDIS_CACHE_DB', '1'),
+            'database' => env('REDIS_CACHE_DB', '0'),  // Upstash free only supports DB 0
             'max_retries' => env('REDIS_MAX_RETRIES', 3),
             'backoff_algorithm' => env('REDIS_BACKOFF_ALGORITHM', 'decorrelated_jitter'),
             'backoff_base' => env('REDIS_BACKOFF_BASE', 100),
             'backoff_cap' => env('REDIS_BACKOFF_CAP', 1000),
+            'ssl' => [
+                'verify_peer' => env('REDIS_TLS_VERIFY_PEER', true),
+                'verify_peer_name' => env('REDIS_TLS_VERIFY_PEER_NAME', true),
+            ],
         ],
 
     ],

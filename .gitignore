@@ -2,7 +2,9 @@
 .DS_Store
 .env
 .env.backup
-.env.production
+# .env.production is tracked as a reference template (no real secrets)
+# Use .env.production.local for real local overrides (gitignored)
+.env.production.local
 .phpactor.json
 .phpunit.result.cache
 /.codex
@@ -25,3 +27,4 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+/var/data/database.sqlite

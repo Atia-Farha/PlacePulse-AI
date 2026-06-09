@@ -2,13 +2,11 @@
 # https://render.com/docs/blueprint-spec
 #
 # Deploy: Render Dashboard → New → Blueprint → connect this repo.
-# After deploy, set APP_KEY and APP_URL in the web service environment.
-
-databases:
-  - name: placepulse-db
-    plan: free
-    databaseName: placepulse
-    user: placepulse
+# After deploy, manually set APP_KEY, APP_URL, OPENAI_API_KEY, and UPSTASH_REDIS_URL
+# in the Render web service environment dashboard.
+#
+# SQLite lives on a persistent disk at /var/data so it survives redeploys.
+# Upstash Redis (Free) is used for cache + sessions — no paid add-ons needed.
 
 services:
   - type: web
@@ -17,7 +15,15 @@ services:
     plan: free
     region: oregon
     healthCheckPath: /up
+
+    # Persistent disk keeps SQLite alive across deploys & restarts
+    disk:
+      name: placepulse-data
+      mountPath: /var/data
+      sizeGB: 1
+
     envVars:
+      # ── App ────────────────────────────────────────────────────────────────
       - key: APP_NAME
         value: PlacePulse AI
       - key: APP_ENV
@@ -25,27 +31,50 @@ services:
       - key: APP_DEBUG
         value: "false"
       - key: APP_KEY
-        sync: false
+        sync: false          # Set manually in Render dashboard after first deploy
       - key: APP_URL
-        sync: false
+        sync: false          # Set manually: https://your-app.onrender.com
+
+      # ── Logging ────────────────────────────────────────────────────────────
       - key: LOG_CHANNEL
         value: stderr
       - key: LOG_LEVEL
         value: warning
+
+      # ── Database (SQLite on persistent disk) ───────────────────────────────
       - key: DB_CONNECTION
-        value: pgsql
-      - key: DB_URL
-        fromDatabase:
-          name: placepulse-db
-          property: connectionString
+        value: sqlite
+      - key: DB_DATABASE
+        value: /var/data/database.sqlite
+
+      # ── Sessions & Cache (Upstash Redis) ───────────────────────────────────
       - key: SESSION_DRIVER
-        value: database
+        value: redis
+      - key: SESSION_LIFETIME
+        value: "120"
+      - key: SESSION_ENCRYPT
+        value: "true"
       - key: SESSION_SECURE_COOKIE
         value: "true"
       - key: CACHE_STORE
-        value: database
+        value: redis
+
+      # ── Redis / Upstash ────────────────────────────────────────────────────
+      # UPSTASH_REDIS_URL is the canonical source; we copy it to REDIS_URL
+      # so Laravel's predis client can consume it directly.
+      # Format: rediss://default:<PASSWORD>@<HOST>.upstash.io:6379
+      - key: UPSTASH_REDIS_URL
+        sync: false          # Set manually in Render dashboard
+      - key: REDIS_URL
+        sync: false          # Set to same value as UPSTASH_REDIS_URL
+      - key: REDIS_CLIENT
+        value: predis
+
+      # ── Queue ──────────────────────────────────────────────────────────────
       - key: QUEUE_CONNECTION
         value: sync
+
+      # ── OpenAI ─────────────────────────────────────────────────────────────
       - key: OPENAI_API_KEY
         sync: false
       - key: OPENAI_MODEL
