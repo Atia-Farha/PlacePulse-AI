@@ -45,7 +45,7 @@ services:
       - key: DB_CONNECTION
         value: sqlite
       - key: DB_DATABASE
-        value: /var/data/database.sqlite
+        value: database/database.sqlite
 
       # ── Sessions & Cache (Upstash Redis) ───────────────────────────────────
       - key: SESSION_DRIVER
