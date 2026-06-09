@@ -1,20 +1,23 @@
 FROM php:8.4-cli-alpine
 
+# ✅ Required build tools (IMPORTANT on Alpine)
 RUN apk add --no-cache \
     bash \
     git \
     curl \
+    nodejs \
+    npm \
+    zip \
+    unzip \
+    sqlite-dev \
     libpng-dev \
     libjpeg-turbo-dev \
     freetype-dev \
-    oniguruma-dev \
     libxml2-dev \
-    sqlite \
-    zip \
-    unzip \
-    nodejs \
-    npm
+    oniguruma-dev \
+    $PHPIZE_DEPS
 
+# ✅ PHP extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
         pdo \
@@ -26,10 +29,12 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
         pcntl \
         fileinfo
 
+# Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
+# Dependencies first (better caching)
 COPY composer.json composer.lock ./
 RUN composer install --no-dev --no-scripts --prefer-dist --no-interaction
 
