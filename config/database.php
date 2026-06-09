@@ -159,7 +159,7 @@ return [
         // automatically and the ssl block enables TLS certificate verification.
         //
         'default' => [
-            'url' => env('REDIS_URL'),
+            'url' => env('REDIS_URL', env('UPSTASH_REDIS_URL')),
             'host' => env('REDIS_HOST', '127.0.0.1'),
             'username' => env('REDIS_USERNAME'),
             'password' => env('REDIS_PASSWORD'),
@@ -182,7 +182,7 @@ return [
         // connections share DB 0 and rely on key prefixing for isolation.
         //
         'cache' => [
-            'url' => env('REDIS_URL'),
+            'url' => env('REDIS_URL', env('UPSTASH_REDIS_URL')),
             'host' => env('REDIS_HOST', '127.0.0.1'),
             'username' => env('REDIS_USERNAME'),
             'password' => env('REDIS_PASSWORD'),

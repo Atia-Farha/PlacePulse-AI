@@ -60,13 +60,11 @@ services:
         value: redis
 
       # ── Redis / Upstash ────────────────────────────────────────────────────
-      # UPSTASH_REDIS_URL is the canonical source; we copy it to REDIS_URL
-      # so Laravel's predis client can consume it directly.
+      # Set UPSTASH_REDIS_URL in the Render dashboard — config/database.php
+      # reads it directly as a fallback when REDIS_URL is absent.
       # Format: rediss://default:<PASSWORD>@<HOST>.upstash.io:6379
       - key: UPSTASH_REDIS_URL
         sync: false          # Set manually in Render dashboard
-      - key: REDIS_URL
-        sync: false          # Set to same value as UPSTASH_REDIS_URL
       - key: REDIS_CLIENT
         value: predis
 

@@ -9,16 +9,16 @@ RUN apk add --no-cache \
     freetype-dev \
     oniguruma-dev \
     libxml2-dev \
+    sqlite \
     zip \
     unzip \
-    postgresql-dev \
     nodejs \
     npm
 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
         pdo \
-        pdo_pgsql \
+        pdo_sqlite \
         mbstring \
         xml \
         gd \
