@@ -4,7 +4,7 @@
 
 PlacePulse AI turns any place into a structured cultural intelligence dossier. Scan your coordinates or search manually — the Location Intelligence Agent synthesizes history, must-visit spots, local flavors, practical tips, and fun facts into a polished, scrollable report you can save and export as PDF.
 
-Built for the **Codex Community Challenge** with agentic development patterns (`AGENTS.md`, `skills.md`) and meaningful OpenAI platform integration.
+Built for the **Codex Community Challenge** with agenticdevelopment patterns ([AGENTS.md](AGENTS.md), [skills.md](skills.md)) and meaningful OpenAI platform integration.
 
 ---
 
@@ -43,7 +43,8 @@ For a quick walkthrough without setup, see the **recorded demo** linked in [SUBM
 - **Frontend:** Blade, Tailwind CSS 4, Vite
 - **AI:** OpenAI Chat Completions (`gpt-5-mini`) via `openai-php/laravel`
 - **Geocoding:** OpenStreetMap Nominatim (no API key required)
-- **Database:** SQLite (local) · PostgreSQL (Render)
+- **Database:** SQLite
+- **Cache:** Redis
 - **PDF:** DomPDF
 
 ---

@@ -87,7 +87,7 @@ The **Location Intelligence Agent** possesses several key capabilities designed 
 
 ## 2. Design-Time Agent Skills & Capabilities
 
-The developer agent (**Antigravity**) utilized a specialized set of engineering skills to implement and refine the application:
+The developer agent (**Codex**) utilized a specialized set of engineering skills to implement and refine the application:
 
 ### A. Layout & UI Polish Skill
 - Styled custom layouts using **Tailwind CSS**.

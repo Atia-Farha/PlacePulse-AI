@@ -21,21 +21,23 @@ graph TD
 ```
 
 ### Agent Persona & System Instructions
+
 - **Agent Name**: `PlacePulse Intelligence Agent`
 - **Role**: World-class travel writer, cultural anthropologist, and historical guide.
 - **Tone**: Poetic, specific, vivid, and highly structured (strictly emoji-free).
 - **Core Instruction Set**:
-  - Uncover lesser-known local stories rather than generic tourist highlights.
-  - Formulate precise, actionable practical guidelines.
-  - Maintain absolute compliance with the defined JSON response schema.
+    - Uncover lesser-known local stories rather than generic tourist highlights.
+    - Formulate precise, actionable practical guidelines.
+    - Maintain absolute compliance with the defined JSON response schema.
 
 ---
 
-## 2. Design-Time Agent: Antigravity
+## 2. Design-Time Agent: Codex
 
-This project's code, structure, and user interfaces were co-engineered using **Antigravity**, a state-of-the-art agentic pair programmer. 
+This project's code, structure, and user interfaces were co-engineered using **Codex**, a state-of-the-art agentic pair programmer.
 
 ### Agentic Collaborative Development Workflow
+
 1. **Interactive Planning Phase**: Refined user interface requirements, verified color palettes (such as `primary-600`), and resolved PDF layout limitations.
 2. **Context-Aware Implementation**: Analyzed the workspace codebase, performed code changes using precise tools, and compiled assets via Vite builds.
 3. **Automated Verification**: Ran Laravel builds and verified style sheets to ensure perfect consistency.
@@ -72,11 +74,11 @@ sequenceDiagram
 
 The runtime agent properties are defined in the application configuration:
 
-| Parameter | Configuration Key | Default Value | Description |
-|-----------|-------------------|---------------|-------------|
-| **Model** | `openai.model` | `gpt-5-mini` | The OpenAI model executing the agent analysis. |
-| **Strict Schema** | `response_format` | `json_schema` | Enforces structured outputs on the OpenAI endpoint. |
-| **Token Limit** | `max_completion_tokens` | `8000` | Completion budget for structured JSON (reasoning models need headroom). |
-| **Reasoning Effort** | `reasoning_effort` | `low` | Reduces internal reasoning token use so output is not truncated. |
+| Parameter            | Configuration Key       | Default Value | Description                                                             |
+| -------------------- | ----------------------- | ------------- | ----------------------------------------------------------------------- |
+| **Model**            | `openai.model`          | `gpt-5-mini`  | The OpenAI model executing the agent analysis.                          |
+| **Strict Schema**    | `response_format`       | `json_schema` | Enforces structured outputs on the OpenAI endpoint.                     |
+| **Token Limit**      | `max_completion_tokens` | `8000`        | Completion budget for structured JSON (reasoning models need headroom). |
+| **Reasoning Effort** | `reasoning_effort`      | `low`         | Reduces internal reasoning token use so output is not truncated.        |
 
-For detailed information on the tools and skills utilized by the agents, please refer to [skills.md](file:///home/atia-farha/Documents/Projects/Laravel-Projects/PlacePulse-AI/skills.md).
+For detailed information on the tools and skills utilized by the agents, please refer to [skills.md](skills.md).
