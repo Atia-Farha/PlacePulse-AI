@@ -1,0 +1,58 @@
+# Render Blueprint — PlacePulse AI (Free Tier)
+# https://render.com/docs/blueprint-spec
+#
+# Deploy: Render Dashboard → New → Blueprint → connect this repo.
+# After deploy, set APP_KEY and APP_URL in the web service environment.
+
+databases:
+  - name: placepulse-db
+    plan: free
+    databaseName: placepulse
+    user: placepulse
+
+services:
+  - type: web
+    name: placepulse-ai
+    runtime: docker
+    plan: free
+    region: oregon
+    healthCheckPath: /up
+    envVars:
+      - key: APP_NAME
+        value: PlacePulse AI
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_KEY
+        sync: false
+      - key: APP_URL
+        sync: false
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: LOG_LEVEL
+        value: warning
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_URL
+        fromDatabase:
+          name: placepulse-db
+          property: connectionString
+      - key: SESSION_DRIVER
+        value: database
+      - key: SESSION_SECURE_COOKIE
+        value: "true"
+      - key: CACHE_STORE
+        value: database
+      - key: QUEUE_CONNECTION
+        value: sync
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-5-mini
+      - key: OPENAI_MAX_COMPLETION_TOKENS
+        value: "8000"
+      - key: OPENAI_REASONING_EFFORT
+        value: low
+      - key: OPENAI_REQUEST_TIMEOUT
+        value: "120"

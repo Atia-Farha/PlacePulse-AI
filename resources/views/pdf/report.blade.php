@@ -400,7 +400,7 @@
 
     <!-- Footer Block -->
     <div class="footer">
-        Generated via PlacePulse Engine &middot; {{ now()->format('F j, Y') }} &middot; Powered by AI
+        Generated via PlacePulse Engine &middot; {{ now()->format('F j, Y') }} &middot; Powered by OpenAI
     </div>
 
 </body>

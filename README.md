@@ -10,7 +10,9 @@ Built for the **Codex Community Challenge** with agentic development patterns (`
 
 ## Demo
 
-There is no public deployment for this submission. Judges and reviewers can run the app locally using the steps below (typically under five minutes with an OpenAI API key).
+**Live (Render free tier):** deploy with [Render](#deploy-on-render-free-tier) — URL will be `https://placepulse-ai.onrender.com` (or your chosen service name).
+
+**Local:** run locally in under five minutes with an OpenAI API key — see [Running Locally](#running-locally).
 
 For a quick walkthrough without setup, see the **recorded demo** linked in [SUBMISSION.md](./SUBMISSION.md).
 
@@ -26,7 +28,7 @@ For a quick walkthrough without setup, see the **recorded demo** linked in [SUBM
 | **Manual search** | Enter any city, district, landmark, or region |
 | **AI location dossier** | 8 structured sections: title, soul narrative, history, must-visit, local flavors, tips, fun facts |
 | **Structured JSON outputs** | Strict OpenAI `json_schema` — every field validated before render |
-| **Report caching** | SQLite-backed cache avoids repeat API calls for the same query |
+| **Report caching** | Database-backed cache avoids repeat API calls for the same query |
 | **Regenerate** | Force a fresh AI analysis on demand |
 | **PDF export** | Download a formatted intelligence dossier |
 | **User accounts** | Register/login to persist report history |
@@ -41,14 +43,15 @@ For a quick walkthrough without setup, see the **recorded demo** linked in [SUBM
 - **Frontend:** Blade, Tailwind CSS 4, Vite
 - **AI:** OpenAI Chat Completions (`gpt-5-mini`) via `openai-php/laravel`
 - **Geocoding:** OpenStreetMap Nominatim (no API key required)
-- **Database:** SQLite
+- **Database:** SQLite (local) · PostgreSQL (Render)
 - **PDF:** DomPDF
 
 ---
 
 ## Requirements
 
-- PHP **8.3+** with extensions: `sqlite3`, `pdo_sqlite`, `mbstring`, `openssl`, `curl`
+- PHP **8.3+** locally · **8.4** in Docker (Render)
+- PHP extensions (local): `sqlite3`, `pdo_sqlite`, `mbstring`, `openssl`, `curl`
 - [Composer](https://getcomposer.org/)
 - [Node.js](https://nodejs.org/) 18+ and npm
 - An [OpenAI API key](https://platform.openai.com/api-keys)
@@ -161,7 +164,7 @@ User → ReportController → OpenAIReportService → OpenAI API
                               ↓
                      JSON schema validation
                               ↓
-                     SQLite cache → Blade UI / PDF
+                     PostgreSQL / SQLite cache → Blade UI / PDF
 ```
 
 See [AGENTS.md](./AGENTS.md) for the runtime agent persona, workflow diagrams, and configuration reference.  
@@ -183,6 +186,9 @@ resources/
 ├── js/app.js                     # Geolocation, report UI, API calls
 ├── views/                        # Blade templates
 config/openai.php                 # Model, tokens, reasoning effort
+Dockerfile                        # Production container (Render)
+render.yaml                       # Render Blueprint (free tier)
+docker/render-start.sh            # Migrate, cache, serve
 AGENTS.md                         # Agent architecture (Codex challenge)
 skills.md                         # Agent capabilities (Codex challenge)
 SUBMISSION.md                     # Devpost submission copy
@@ -201,6 +207,83 @@ SUBMISSION.md                     # Devpost submission copy
 | Assets not loading | Run `npm run build` or use `composer dev` for Vite |
 
 Logs: `storage/logs/laravel.log`
+
+---
+
+## Deploy on Render (Free Tier)
+
+PlacePulse AI includes a [Render Blueprint](https://render.com/docs/blueprint-spec) (`render.yaml`) that provisions:
+
+- **Web service** (Docker, free plan)
+- **PostgreSQL database** (free plan, 1 GB)
+
+### Prerequisites
+
+- [Render](https://render.com) account (GitHub connected)
+- [OpenAI API key](https://platform.openai.com/api-keys)
+- This repo pushed to GitHub
+
+### Step 1 — Generate secrets locally
+
+```bash
+php artisan key:generate --show
+```
+
+Copy the output — you will paste it as `APP_KEY` on Render.
+
+### Step 2 — Deploy with Blueprint
+
+1. Open [Render Dashboard](https://dashboard.render.com/) → **New** → **Blueprint**
+2. Connect repository: `Atia-Farha/PlacePulse-AI`
+3. Render reads `render.yaml` and creates **placepulse-ai** (web) + **placepulse-db** (PostgreSQL)
+4. Click **Apply**
+
+First deploy takes ~5–10 minutes (Docker build + npm + composer).
+
+### Step 3 — Set required environment variables
+
+In the **placepulse-ai** web service → **Environment**:
+
+| Variable | Value |
+|----------|-------|
+| `APP_KEY` | Output from `php artisan key:generate --show` |
+| `APP_URL` | Your Render URL, e.g. `https://placepulse-ai.onrender.com` |
+| `OPENAI_API_KEY` | Your OpenAI API key |
+
+All other variables are defined in `render.yaml`. Save changes — Render redeploys automatically.
+
+### Step 4 — Verify
+
+1. Open your Render URL (e.g. `https://placepulse-ai.onrender.com`)
+2. Health check: `https://your-app.onrender.com/up` should return `200`
+3. Scan geolocation or search a place — first request after idle may take ~30s (cold start)
+
+### Free tier notes
+
+| Limit | Detail |
+|-------|--------|
+| **Cold starts** | Service sleeps after ~15 min idle; first request wakes it (~30–60s) |
+| **PostgreSQL** | Free DB expires after 30 days (upgrade or migrate before expiry) |
+| **HTTPS** | Automatic — geolocation requires HTTPS (Render provides this) |
+| **Build time** | Docker image builds on each deploy (~5–10 min) |
+
+### Manual deploy (without Blueprint)
+
+1. **New → Web Service** → connect repo
+2. **Runtime:** Docker
+3. **Plan:** Free
+4. **Health check path:** `/up`
+5. Add env vars from `render.yaml` plus a PostgreSQL database (`DB_URL` from Render dashboard)
+
+### Troubleshooting (Render)
+
+| Issue | Fix |
+|-------|-----|
+| Build fails on npm/composer | Check Render build logs; ensure `package-lock.json` and `composer.lock` are committed |
+| `APP_KEY is not set` | Add `APP_KEY` in Environment tab |
+| 500 on first load | Check Logs tab; confirm `OPENAI_API_KEY` and database migrations ran |
+| Mixed content / wrong URLs | Set `APP_URL` to exact HTTPS Render URL |
+| DB connection error | Confirm `DB_URL` is linked to PostgreSQL; redeploy after DB is ready |
 
 ---
 
