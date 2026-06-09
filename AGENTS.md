@@ -76,6 +76,7 @@ The runtime agent properties are defined in the application configuration:
 |-----------|-------------------|---------------|-------------|
 | **Model** | `openai.model` | `gpt-5-mini` | The OpenAI model executing the agent analysis. |
 | **Strict Schema** | `response_format` | `json_schema` | Enforces structured outputs on the OpenAI endpoint. |
-| **Token Limit** | `max_completion_tokens` | `4000` | Limits generation length to optimize cost and performance. |
+| **Token Limit** | `max_completion_tokens` | `8000` | Completion budget for structured JSON (reasoning models need headroom). |
+| **Reasoning Effort** | `reasoning_effort` | `low` | Reduces internal reasoning token use so output is not truncated. |
 
 For detailed information on the tools and skills utilized by the agents, please refer to [skills.md](file:///home/atia-farha/Documents/Projects/Laravel-Projects/PlacePulse-AI/skills.md).

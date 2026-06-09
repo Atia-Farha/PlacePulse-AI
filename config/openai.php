@@ -55,4 +55,24 @@ return [
     | The default model to use for chat completions.
     */
     'model' => env('OPENAI_MODEL', 'gpt-5-mini'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Max Completion Tokens
+    |--------------------------------------------------------------------------
+    |
+    | Reasoning models (e.g. gpt-5-mini) consume tokens for internal reasoning
+    | before producing output. Keep this high enough for the full JSON report.
+    */
+    'max_completion_tokens' => env('OPENAI_MAX_COMPLETION_TOKENS', 8000),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Reasoning Effort
+    |--------------------------------------------------------------------------
+    |
+    | For reasoning models, "low" reduces internal reasoning token usage so more
+    | of the completion budget is available for the structured JSON response.
+    */
+    'reasoning_effort' => env('OPENAI_REASONING_EFFORT', 'low'),
 ];

@@ -108,26 +108,20 @@ class ReportController extends Controller
         try {
             $response = Http::withHeaders([
                 'User-Agent' => 'PlacePulseAI/1.0',
+                'Accept-Language' => 'en',
             ])->get('https://nominatim.openstreetmap.org/reverse', [
                 'lat' => $request->input('lat'),
                 'lon' => $request->input('lng'),
                 'format' => 'json',
                 'addressdetails' => 1,
-                'zoom' => 10,
+                'accept-language' => 'en',
+                'zoom' => 16,
             ]);
 
             if ($response->successful()) {
                 $data = $response->json();
                 $address = $data['address'] ?? [];
-
-                // Build a human-readable location string
-                $parts = array_filter([
-                    $address['city'] ?? $address['town'] ?? $address['village'] ?? $address['hamlet'] ?? null,
-                    $address['state'] ?? $address['county'] ?? null,
-                    $address['country'] ?? null,
-                ]);
-
-                $locationName = implode(', ', $parts) ?: ($data['display_name'] ?? 'Unknown Location');
+                $locationName = $this->formatReverseGeocodeLocation($address, $data['display_name'] ?? null);
 
                 return response()->json([
                     'success' => true,
@@ -147,6 +141,50 @@ class ReportController extends Controller
                 'message' => 'Geocoding service unavailable.',
             ], 503);
         }
+    }
+
+    /**
+     * Build a district + country label from Nominatim address parts.
+     */
+    private function formatReverseGeocodeLocation(array $address, ?string $displayName): string
+    {
+        $district = $address['state_district']
+            ?? $address['district']
+            ?? $address['county']
+            ?? null;
+
+        $country = $address['country'] ?? null;
+
+        if ($district && $country) {
+            return "{$district}, {$country}";
+        }
+
+        if ($country) {
+            return $country;
+        }
+
+        if ($displayName) {
+            $segments = array_values(array_filter(
+                array_map('trim', explode(',', $displayName)),
+                fn (string $segment) => ! preg_match('/^\d+$/', $segment)
+            ));
+
+            $districtSegment = collect($segments)->first(
+                fn (string $segment) => preg_match('/\b(district|county)\b/i', $segment)
+            );
+
+            $countrySegment = $segments[count($segments) - 1] ?? null;
+
+            if ($districtSegment && $countrySegment && $districtSegment !== $countrySegment) {
+                return "{$districtSegment}, {$countrySegment}";
+            }
+
+            if ($countrySegment) {
+                return $countrySegment;
+            }
+        }
+
+        return 'Unknown Location';
     }
 
     /**

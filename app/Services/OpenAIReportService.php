@@ -178,6 +178,7 @@ Guidelines for each section:
 8. **fun_facts**: 4-6 surprising, delightful facts that make people say "I had no idea!"
 
 IMPORTANT: Always respond with valid JSON matching the required schema. Every field must be present and properly formatted.
+IMPORTANT: Write the entire report in English only, regardless of the location's local language or script.
 PROMPT;
     }
 
@@ -187,9 +188,10 @@ PROMPT;
     public function generateReport(string $location): array
     {
         $model = config('openai.model', 'gpt-5-mini');
+        $maxTokens = (int) config('openai.max_completion_tokens', 8000);
 
         try {
-            $response = OpenAI::chat()->create([
+            $payload = [
                 'model' => $model,
                 'messages' => [
                     [
@@ -202,10 +204,26 @@ PROMPT;
                     ],
                 ],
                 'response_format' => $this->getResponseSchema(),
-                'max_completion_tokens' => 4000,
-            ]);
+                'max_completion_tokens' => $maxTokens,
+            ];
 
-            $content = $response->choices[0]->message->content;
+            if ($reasoningEffort = config('openai.reasoning_effort')) {
+                $payload['reasoning_effort'] = $reasoningEffort;
+            }
+
+            $response = OpenAI::chat()->create($payload);
+
+            $choice = $response->choices[0];
+            $content = $choice->message->content;
+
+            if ($content === null || $content === '') {
+                $finishReason = $choice->finishReason ?? 'unknown';
+                throw new \RuntimeException(
+                    "AI returned empty content (finish_reason: {$finishReason}). "
+                    . 'Try increasing OPENAI_MAX_COMPLETION_TOKENS or lowering reasoning effort.'
+                );
+            }
+
             $data = json_decode($content, true);
 
             if (json_last_error() !== JSON_ERROR_NONE) {
