@@ -119,10 +119,10 @@
                         class="block text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-primary-600 transition-colors duration-200 text-center">
                         History
                     </a>
-                    <form action="{{ route('logout') }}" method="POST">
+                    <form action="{{ route('logout') }}" method="POST" class="w-full">
                         @csrf
                         <button type="submit"
-                            class="block w-full text-left text-xs font-mono uppercase tracking-wider text-slate-400 hover:text-rose-500 dark:hover:text-rose-450 transition-colors duration-200 text-center cursor-pointer">
+                            class="block w-full text-xs font-mono uppercase tracking-wider text-slate-400 hover:text-rose-500 dark:hover:text-rose-450 transition-colors duration-200 text-center cursor-pointer">
                             Logout
                         </button>
                     </form>
