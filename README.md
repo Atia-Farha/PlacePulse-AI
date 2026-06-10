@@ -50,9 +50,7 @@ Built for the **Codex Community Challenge** with agenticdevelopment patterns ([A
 
 ### Recorded Demo Video
 
-<video src="https://www.loom.com/share/96c11e96a6184cbf82c1b512bf94eb0e" controls></video>
-
-If the video doesn't play, you can [watch the recording on Loom](https://www.loom.com/share/96c11e96a6184cbf82c1b512bf94eb0e).
+https://www.loom.com/share/96c11e96a6184cbf82c1b512bf94eb0e
 
 ## Features
 
