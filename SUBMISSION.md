@@ -58,11 +58,11 @@ php artisan serve
 # Open http://127.0.0.1:8000
 ```
 
-Full instructions: [README.md](https://github.com/Atia-Farha/PlacePulse-AI/blob/main/README.md))
+Full instructions: [README.md](https://github.com/Atia-Farha/PlacePulse-AI/blob/main/README.md)
 
 ### Recorded Demo Video
 
-
+https://www.loom.com/share/96c11e96a6184cbf82c1b512bf94eb0e
 
 ## OpenAI Usage Details
 
@@ -138,25 +138,23 @@ One click → scan your location → get an AI-generated cultural dossier:
 Powered by OpenAI gpt-5-mini with strict JSON schema structured outputs.
 Built with Laravel, Tailwind, agentic workflows (AGENTS.md + skills.md), and Codex.
 
-No live deploy — run locally in 5 minutes or use Render Blueprint:
-https://github.com/Atia-Farha/PlacePulse-AI#deploy-on-render-free-tier
-
-[Add demo video link when ready]
+GitHub repository:
+https://github.com/Atia-Farha/PlacePulse-AI
 
 #OpenAI #CodexCommunity #AIAgents #BuildInPublic #Laravel
 ```
 
 ## Screenshots
 
-![Screenshot of Landing Page](./docs/screenshots/Screenshot-Landing-Page.png)
+![Screenshot of Landing Page](https://raw.githubusercontent.com/Atia-Farha/PlacePulse-AI/refs/heads/main/docs/screenshots/Screenshot-Landing-Page.png)
 
-![Screenshot of Sign Up Page](./docs/screenshots/Screenshot-Signup-Page.png)
+![Screenshot of Sign Up Page](https://raw.githubusercontent.com/Atia-Farha/PlacePulse-AI/refs/heads/main/docs/screenshots/Screenshot-Signup-Page.png)
 
-![Screenshot of Sign In Page](./docs/screenshots/Screenshot-Signin-Page.png)
+![Screenshot of Sign In Page](https://raw.githubusercontent.com/Atia-Farha/PlacePulse-AI/refs/heads/main/docs/screenshots/Screenshot-Signin-Page.png)
 
-![Screenshot of Report Page](./docs/screenshots/Screenshot-Report-Page.png)
+![Screenshot of Report Page](https://raw.githubusercontent.com/Atia-Farha/PlacePulse-AI/refs/heads/main/docs/screenshots/Screenshot-Report-Page.png)
 
-![Screenshot of Report PDF](./docs/screenshots/Screenshot-History-Page.png)
+![Screenshot of Report PDF](https://raw.githubusercontent.com/Atia-Farha/PlacePulse-AI/refs/heads/main/docs/screenshots/Screenshot-History-Page.png)
 
 ## Creativity & Innovation
 
