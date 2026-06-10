@@ -6,36 +6,63 @@ PlacePulse AI turns any place into a structured cultural intelligence dossier. S
 
 Built for the **Codex Community Challenge** with agenticdevelopment patterns ([AGENTS.md](AGENTS.md), [skills.md](skills.md)) and meaningful OpenAI platform integration.
 
----
+## Table of Contents
+
+- [PlacePulse AI](#placepulse-ai)
+  - [Table of Contents](#table-of-contents)
+  - [Demo](#demo)
+    - [Live Demo Link](#live-demo-link)
+    - [Recorded Demo Video](#recorded-demo-video)
+  - [Features](#features)
+  - [Tech Stack](#tech-stack)
+  - [Requirements](#requirements)
+  - [Running Locally](#running-locally)
+    - [1. Clone the repository](#1-clone-the-repository)
+    - [2. One-command setup](#2-one-command-setup)
+    - [3. Configure environment](#3-configure-environment)
+    - [4. Start the application](#4-start-the-application)
+    - [5. Open in browser](#5-open-in-browser)
+  - [Manual setup (alternative)](#manual-setup-alternative)
+  - [How to Use](#how-to-use)
+  - [Problem \& Impact](#problem--impact)
+    - [What problem does the project solve?](#what-problem-does-the-project-solve)
+    - [Who benefits?](#who-benefits)
+    - [What is the potential impact?](#what-is-the-potential-impact)
+  - [OpenAI Integration](#openai-integration)
+    - [Model \& API](#model--api)
+    - [Why structured outputs?](#why-structured-outputs)
+    - [Why reasoning effort tuning?](#why-reasoning-effort-tuning)
+    - [How was OpenAI integrated into the solution?](#how-was-openai-integrated-into-the-solution)
+    - [Agentic development](#agentic-development)
+    - [Architecture](#architecture)
+    - [Agentic development](#agentic-development-1)
+  - [Project Structure](#project-structure)
+  - [Author](#author)
 
 ## Demo
 
-**Live (Render free tier):** deploy with [Render](#deploy-on-render-free-tier) — URL will be `https://placepulse-ai.onrender.com` (or your chosen service name).
+### Live Demo Link
 
-**Local:** run locally in under five minutes with an OpenAI API key — see [Running Locally](#running-locally).
+**Live Site:** https://placepulse-ai.onrender.com
 
-For a quick walkthrough without setup, see the **recorded demo** linked in [SUBMISSION.md](./SUBMISSION.md).
+(**Note:** The demo is hosted on Render's free tier and may take a while to load on the first request due to cold starts.)
 
-**Local URL after setup:** [http://127.0.0.1:8000](http://127.0.0.1:8000)
-
----
+### Recorded Demo Video
 
 ## Features
 
-| Feature | Description |
-|---------|-------------|
-| **Scan Geolocation** | Browser GPS → reverse geocode (English, district + country) → instant report |
-| **Manual search** | Enter any city, district, landmark, or region |
-| **AI location dossier** | 8 structured sections: title, soul narrative, history, must-visit, local flavors, tips, fun facts |
-| **Structured JSON outputs** | Strict OpenAI `json_schema` — every field validated before render |
-| **Report caching** | Database-backed cache avoids repeat API calls for the same query |
-| **Regenerate** | Force a fresh AI analysis on demand |
-| **PDF export** | Download a formatted intelligence dossier |
-| **User accounts** | Register/login to persist report history |
-| **Dark mode** | System-aware toggle with local persistence |
-| **Responsive UI** | Tailwind CSS 4, mobile-first layout |
-
----
+| Feature                     | Description                                                                                                 |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| **Scan Geolocation**        | Browser GPS → reverse geocode (English, district + country) → instant report                                |
+| **Manual search**           | Enter any city, district, landmark, or region                                                               |
+| **AI location dossier**     | 8 structured sections: title, subtitle, soul narrative, history, must-visit, local flavors, tips, fun facts |
+| **Structured JSON outputs** | Strict OpenAI `json_schema` — every field validated before render                                           |
+| **Report caching**          | Database-backed cache avoids repeat API calls for the same query                                            |
+| **Regenerate**              | Force a fresh AI analysis on demand                                                                         |
+| **PDF export**              | Download a formatted intelligence dossier                                                                   |
+| **User accounts**           | Register/login to persist report history                                                                    |
+| **Dark mode**               | System-aware toggle with local persistence                                                                  |
+| **Responsive UI**           | Tailwind CSS 4, mobile-first layout                                                                         |
 
 ## Tech Stack
 
@@ -47,8 +74,6 @@ For a quick walkthrough without setup, see the **recorded demo** linked in [SUBM
 - **Cache:** Redis
 - **PDF:** DomPDF
 
----
-
 ## Requirements
 
 - PHP **8.3+** locally · **8.4** in Docker (Render)
@@ -56,8 +81,6 @@ For a quick walkthrough without setup, see the **recorded demo** linked in [SUBM
 - [Composer](https://getcomposer.org/)
 - [Node.js](https://nodejs.org/) 18+ and npm
 - An [OpenAI API key](https://platform.openai.com/api-keys)
-
----
 
 ## Running Locally
 
@@ -115,12 +138,6 @@ php artisan serve
 
 Visit **[http://127.0.0.1:8000](http://127.0.0.1:8000)**
 
-1. Click **Scan Geolocation** (allow location permission), or type a place and submit.
-2. Wait ~30–60 seconds while the Location Intelligence Agent generates the dossier.
-3. Scroll the report, export PDF, or register to save history.
-
----
-
 ## Manual setup (alternative)
 
 ```bash
@@ -134,7 +151,32 @@ npm run build
 php artisan serve
 ```
 
----
+## How to Use
+
+1. Click **Scan Geolocation** (allow location permission), or type a place and submit.
+2. Wait ~30–60 seconds while the Location Intelligence Agent generates the dossier.
+3. Click **Regenerate** to force a fresh AI analysis on demand.
+4. Click **Download PDF** to download a formatted intelligence dossier.
+5. Optionally, register an account to save history.
+
+## Problem & Impact
+
+### What problem does the project solve?
+
+Travel and local discovery content is scattered, generic, or shallow. Getting a rich, structured picture of a place — its history, culture, food, and practical advice — usually requires hours of research across multiple sources.
+
+### Who benefits?
+
+- **Travelers** exploring unfamiliar cities or districts
+- **Students and Researchers** needing quick cultural context
+- **Remote Workers** relocating or visiting new areas
+- **Local Communities** rediscovering their own region through AI-curated narratives
+
+### What is the potential impact?
+
+PlacePulse AI democratizes location intelligence: one click or one search produces a magazine-quality dossier that would be impractical to assemble manually. It is especially valuable for lesser-known districts where mainstream travel guides offer little depth.
+
+**Category fit:** Creative Applications, Education & Learning, Local Problem Solving, AI Agents.
 
 ## OpenAI Integration
 
@@ -142,36 +184,55 @@ PlacePulse AI uses OpenAI as the **core intelligence layer** — not as a bolt-o
 
 ### Model & API
 
-| Setting | Value |
-|---------|-------|
-| Model | `gpt-5-mini` |
-| Endpoint | Chat Completions |
-| Response format | Strict `json_schema` (structured outputs) |
-| Max completion tokens | `8000` |
-| Reasoning effort | `low` |
+| Setting               | Value                                     |
+| --------------------- | ----------------------------------------- |
+| Model                 | `gpt-5-mini`                              |
+| Endpoint              | Chat Completions                          |
+| Response format       | Strict `json_schema` (structured outputs) |
+| Max completion tokens | `8000`                                    |
+| Reasoning effort      | `low`                                     |
+| SDK                   | `openai-php/laravel`                      |
 
 ### Why structured outputs?
 
-Reports must render reliably in Blade templates and PDF exports. A strict JSON schema guarantees every section (`title`, `soul`, `history`, `must_visit`, etc.) is present and typed correctly — no fragile markdown parsing.
+Reports must render reliably in Blade templates and PDF exports. A strict JSON schema guarantees every section (`title`, `subtitle`, `soul`, `history`, `must_visit`, `local_flavors`, `practical_tips`, `fun_facts`) is present and typed correctly — no fragile markdown parsing.
 
 ### Why reasoning effort tuning?
 
-`gpt-5-mini` is a reasoning model. Internal reasoning tokens count against the completion budget. With the default 4000-token limit, the model could exhaust its budget on reasoning and return **empty content**. Setting `reasoning_effort=low` and `max_completion_tokens=8000` ensures the full dossier is generated.
+`gpt-5-mini` is a reasoning model. Internal reasoning tokens count against the completion budget. With the default 4000-token limit, the model could exhaust its budget on reasoning and return empty content. Setting `reasoning_effort=low` and `max_completion_tokens=8000` ensures the full dossier is generated.
+
+### How was OpenAI integrated into the solution?
+
+1. **Input:** User provides a location via browser geolocation (reverse-geocoded to English district + country) or manual text search.
+2. **Agent invocation:** `OpenAIReportService` sends a system prompt defining the **PlacePulse Intelligence Agent** persona (travel writer, cultural anthropologist, historian) plus the user's location.
+3. **Structured output:** OpenAI returns a strict JSON object with eight required sections: `title`, `subtitle`, `soul`, `history`, `must_visit`, `local_flavors`, `practical_tips`, `fun_facts`.
+4. **Validation & cache:** JSON is parsed and validated; results are stored in SQLite to avoid duplicate API calls.
+5. **Delivery:** Laravel renders the dossier in a responsive Blade UI and supports PDF export via DomPDF.
+
+### Agentic development
+
+| Artifact     | Role                                                                                             |
+| ------------ | ------------------------------------------------------------------------------------------------ |
+| `AGENTS.md`  | Documents runtime Location Intelligence Agent architecture, Mermaid workflows, and configuration |
+| `skills.md`  | Defines geocoding, structured dossier synthesis, PDF layout, and UI skills                       |
+| Codex agents | Co-engineered the Laravel app using agentic pair programming patterns                            |
 
 ### Architecture
 
-```
-User → ReportController → OpenAIReportService → OpenAI API
-                              ↓
-                     JSON schema validation
-                              ↓
-                     PostgreSQL / SQLite cache → Blade UI / PDF
-```
+![Architecture diagram](./docs/diagrams/PlacePulse-AI-Agent-Architecture.png)
+
+![PlacePulse AI Workflow](./docs/diagrams/PlacePulse-AI-Workflow.png)
 
 See [AGENTS.md](./AGENTS.md) for the runtime agent persona, workflow diagrams, and configuration reference.  
 See [skills.md](./skills.md) for geocoding, schema synthesis, and design-time agent capabilities.
 
----
+### Agentic development
+
+| Artifact     | Role                                                                                             |
+| ------------ | ------------------------------------------------------------------------------------------------ |
+| `AGENTS.md`  | Documents runtime Location Intelligence Agent architecture, Mermaid workflows, and configuration |
+| `skills.md`  | Defines geocoding, structured dossier synthesis, PDF layout, and UI skills                       |
+| Codex agents | Co-engineered the Laravel app using agentic pair programming patterns                            |
 
 ## Project Structure
 
@@ -192,108 +253,8 @@ render.yaml                       # Render Blueprint (free tier)
 docker/render-start.sh            # Migrate, cache, serve
 AGENTS.md                         # Agent architecture (Codex challenge)
 skills.md                         # Agent capabilities (Codex challenge)
-SUBMISSION.md                     # Devpost submission copy
 ```
 
----
+## Author
 
-## Troubleshooting
-
-| Issue | Fix |
-|-------|-----|
-| `could not find driver` (SQLite) | Install PHP SQLite: `sudo apt install php-sqlite3` |
-| `Failed to generate report` | Check `OPENAI_API_KEY` in `.env`, run `php artisan config:clear` |
-| Empty AI response / JSON error | Ensure `OPENAI_MAX_COMPLETION_TOKENS=8000` and `OPENAI_REASONING_EFFORT=low` |
-| Geolocation blocked | Use HTTPS or `localhost`; grant browser location permission |
-| Assets not loading | Run `npm run build` or use `composer dev` for Vite |
-
-Logs: `storage/logs/laravel.log`
-
----
-
-## Deploy on Render (Free Tier)
-
-PlacePulse AI includes a [Render Blueprint](https://render.com/docs/blueprint-spec) (`render.yaml`) that provisions:
-
-- **Web service** (Docker, free plan)
-- **PostgreSQL database** (free plan, 1 GB)
-
-### Prerequisites
-
-- [Render](https://render.com) account (GitHub connected)
-- [OpenAI API key](https://platform.openai.com/api-keys)
-- This repo pushed to GitHub
-
-### Step 1 — Generate secrets locally
-
-```bash
-php artisan key:generate --show
-```
-
-Copy the output — you will paste it as `APP_KEY` on Render.
-
-### Step 2 — Deploy with Blueprint
-
-1. Open [Render Dashboard](https://dashboard.render.com/) → **New** → **Blueprint**
-2. Connect repository: `Atia-Farha/PlacePulse-AI`
-3. Render reads `render.yaml` and creates **placepulse-ai** (web) + **placepulse-db** (PostgreSQL)
-4. Click **Apply**
-
-First deploy takes ~5–10 minutes (Docker build + npm + composer).
-
-### Step 3 — Set required environment variables
-
-In the **placepulse-ai** web service → **Environment**:
-
-| Variable | Value |
-|----------|-------|
-| `APP_KEY` | Output from `php artisan key:generate --show` |
-| `APP_URL` | Your Render URL, e.g. `https://placepulse-ai.onrender.com` |
-| `OPENAI_API_KEY` | Your OpenAI API key |
-
-All other variables are defined in `render.yaml`. Save changes — Render redeploys automatically.
-
-### Step 4 — Verify
-
-1. Open your Render URL (e.g. `https://placepulse-ai.onrender.com`)
-2. Health check: `https://your-app.onrender.com/up` should return `200`
-3. Scan geolocation or search a place — first request after idle may take ~30s (cold start)
-
-### Free tier notes
-
-| Limit | Detail |
-|-------|--------|
-| **Cold starts** | Service sleeps after ~15 min idle; first request wakes it (~30–60s) |
-| **PostgreSQL** | Free DB expires after 30 days (upgrade or migrate before expiry) |
-| **HTTPS** | Automatic — geolocation requires HTTPS (Render provides this) |
-| **Build time** | Docker image builds on each deploy (~5–10 min) |
-
-### Manual deploy (without Blueprint)
-
-1. **New → Web Service** → connect repo
-2. **Runtime:** Docker
-3. **Plan:** Free
-4. **Health check path:** `/up`
-5. Add env vars from `render.yaml` plus a PostgreSQL database (`DB_URL` from Render dashboard)
-
-### Troubleshooting (Render)
-
-| Issue | Fix |
-|-------|-----|
-| Build fails on npm/composer | Check Render build logs; ensure `package-lock.json` and `composer.lock` are committed |
-| `APP_KEY is not set` | Add `APP_KEY` in Environment tab |
-| 500 on first load | Check Logs tab; confirm `OPENAI_API_KEY` and database migrations ran |
-| Mixed content / wrong URLs | Set `APP_URL` to exact HTTPS Render URL |
-| DB connection error | Confirm `DB_URL` is linked to PostgreSQL; redeploy after DB is ready |
-
----
-
-## Challenge Submission
-
-Full Devpost fields, OpenAI usage write-up, problem/impact statement, and social post drafts are in **[SUBMISSION.md](./SUBMISSION.md)**.
-
----
-
-## License
-
-MIT
+Developed by Atia Farha ([@atia-farha](https://github.com/atia-farha))

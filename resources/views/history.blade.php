@@ -5,7 +5,7 @@
     <!-- Header -->
     <div class="mb-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 border-b border-slate-200 dark:border-slate-800 pb-8">
         <div>
-            <h1 class="text-2xl font-bold uppercase tracking-tight text-slate-900 dark:text-white">
+            <h1 class="text-2xl font-bold uppercase tracking-tight text-primary-600">
                 Dossier History
             </h1>
             <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 font-light">
