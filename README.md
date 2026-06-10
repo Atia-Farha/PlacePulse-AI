@@ -24,6 +24,7 @@ Built for the **Codex Community Challenge** with agenticdevelopment patterns ([A
     - [5. Open in browser](#5-open-in-browser)
   - [Manual setup (alternative)](#manual-setup-alternative)
   - [How to Use](#how-to-use)
+  - [Screenshots](#screenshots)
   - [Problem \& Impact](#problem--impact)
     - [What problem does the project solve?](#what-problem-does-the-project-solve)
     - [Who benefits?](#who-benefits)
@@ -158,6 +159,18 @@ php artisan serve
 3. Click **Regenerate** to force a fresh AI analysis on demand.
 4. Click **Download PDF** to download a formatted intelligence dossier.
 5. Optionally, register an account to save history.
+
+## Screenshots
+
+![Screenshot of Landing Page](./docs/screenshots/Screenshot-Landing-Page.png)
+
+![Screenshot of Sign Up Page](./docs/screenshots/Screenshot-Signup-Page.png)
+
+![Screenshot of Sign In Page](./docs/screenshots/Screenshot-Signin-Page.png)
+
+![Screenshot of Report Page](./docs/screenshots/Screenshot-Report-Page.png)
+
+![Screenshot of Report PDF](./docs/screenshots/Screenshot-History-Page.png)
 
 ## Problem & Impact
 

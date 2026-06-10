@@ -4,6 +4,7 @@
 
 ### Project Name
 
+PlacePulse AI
 - [PlacePulse AI — Codex Community Challenge Submission](#placepulse-ai--codex-community-challenge-submission)
   - [Project Information](#project-information)
     - [Project Name](#project-name)
@@ -57,7 +58,7 @@ php artisan serve
 # Open http://127.0.0.1:8000
 ```
 
-Full instructions: [README.md](<[./README.md#running-locally](https://github.com/Atia-Farha/PlacePulse-AI/blob/main/README.md)>)
+Full instructions: [README.md](https://github.com/Atia-Farha/PlacePulse-AI/blob/main/README.md))
 
 ### Recorded Demo Video
 
@@ -147,7 +148,15 @@ https://github.com/Atia-Farha/PlacePulse-AI#deploy-on-render-free-tier
 
 ## Screenshots
 
+![Screenshot of Landing Page](./docs/screenshots/Screenshot-Landing-Page.png)
 
+![Screenshot of Sign Up Page](./docs/screenshots/Screenshot-Signup-Page.png)
+
+![Screenshot of Sign In Page](./docs/screenshots/Screenshot-Signin-Page.png)
+
+![Screenshot of Report Page](./docs/screenshots/Screenshot-Report-Page.png)
+
+![Screenshot of Report PDF](./docs/screenshots/Screenshot-History-Page.png)
 
 ## Creativity & Innovation
 
