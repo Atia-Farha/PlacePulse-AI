@@ -34,6 +34,44 @@ function initDarkMode() {
     });
 }
 
+function initMobileMenu() {
+    const toggle = $('#mobileMenuToggle');
+    const menu = $('#mobileMenu');
+    const iconClosed = $('#mobileMenuIconClosed');
+    const iconOpen = $('#mobileMenuIconOpen');
+
+    if (!toggle || !menu) return;
+
+    toggle.addEventListener('click', () => {
+        const isOpen = !menu.classList.contains('hidden');
+
+        if (isOpen) {
+            menu.classList.add('hidden');
+            menu.style.maxHeight = '0';
+            iconClosed.classList.remove('hidden');
+            iconOpen.classList.add('hidden');
+        } else {
+            menu.classList.remove('hidden');
+            // For smooth transition
+            setTimeout(() => {
+                menu.style.maxHeight = '300px';
+            }, 10);
+            iconClosed.classList.add('hidden');
+            iconOpen.classList.remove('hidden');
+        }
+    });
+
+    // Close menu on resize if screen becomes large
+    window.addEventListener('resize', () => {
+        if (window.innerWidth >= 768) { // md breakpoint
+            menu.classList.add('hidden');
+            menu.style.maxHeight = '0';
+            iconClosed.classList.remove('hidden');
+            iconOpen.classList.add('hidden');
+        }
+    });
+}
+
 // ─── Toast Notifications ───
 function showToast(message, type = 'info') {
     const toast = $('#toast');
@@ -334,6 +372,7 @@ function newReport() {
 // ─── Event Listeners ───
 document.addEventListener('DOMContentLoaded', () => {
     initDarkMode();
+    initMobileMenu();
 
     // Scan location
     $('#scanLocationBtn')?.addEventListener('click', scanLocation);
