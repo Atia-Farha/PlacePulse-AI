@@ -249,12 +249,12 @@ function renderReport(data, location) {
             <div class="relative pl-2">
                 <div class="absolute w-2.5 h-2.5 rounded-full bg-primary-500 -left-[21.5px] top-1.5 border-2 border-white dark:border-slate-900"></div>
                 <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-2">
-                    <span class="px-2 py-0.5 border border-slate-250 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 rounded text-xs font-mono uppercase text-slate-700 dark:text-slate-300 w-fit">
+                    <span class="px-2 py-0.5 border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 rounded text-xs font-mono uppercase text-slate-700 dark:text-slate-300 w-fit">
                         ${escapeHtml(item.year)}
                     </span>
                     <h3 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">${escapeHtml(item.title)}</h3>
                 </div>
-                <p class="text-sm text-slate-650 dark:text-slate-400 font-light leading-relaxed mb-6">${escapeHtml(item.description)}</p>
+                <p class="text-sm text-slate-600 dark:text-slate-400 font-light leading-relaxed mb-6">${escapeHtml(item.description)}</p>
             </div>
         `).join('');
     }
@@ -267,13 +267,13 @@ function renderReport(data, location) {
                 <div>
                     <div class="flex items-center justify-between gap-4 mb-2">
                         <h3 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">${escapeHtml(spot.name)}</h3>
-                        <span class="px-2 py-0.5 border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-900 text-[10px] font-mono uppercase text-slate-500 dark:text-slate-450 rounded">${escapeHtml(spot.category)}</span>
+                        <span class="px-2 py-0.5 border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-900 text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400 rounded">${escapeHtml(spot.category)}</span>
                     </div>
                     <p class="text-sm text-slate-600 dark:text-slate-400 font-light mb-3 leading-relaxed">${escapeHtml(spot.description)}</p>
                 </div>
                 <div class="bg-slate-100/50 dark:bg-slate-900/30 border-l-2 border-primary-500 pl-3 py-1.5">
                     <span class="text-[9px] font-mono uppercase tracking-wider text-primary-600 block mb-0.5 font-bold">Why Visit</span>
-                    <p class="text-sm text-slate-700 dark:text-slate-355 font-light italic leading-relaxed">${escapeHtml(spot.why_visit)}</p>
+                    <p class="text-sm text-slate-700 dark:text-slate-300 font-light italic leading-relaxed">${escapeHtml(spot.why_visit)}</p>
                 </div>
             </div>
         `).join('');
@@ -315,7 +315,7 @@ function renderReport(data, location) {
                     </div>
                     <div>
                         <span class="text-[9px] font-mono uppercase tracking-wider text-primary-600 block mb-0.5 font-bold">${escapeHtml(category)}</span>
-                        <p class="text-sm text-slate-650 dark:text-slate-400 font-light leading-relaxed">${escapeHtml(item.tip)}</p>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 font-light leading-relaxed">${escapeHtml(item.tip)}</p>
                     </div>
                 </div>
             `;

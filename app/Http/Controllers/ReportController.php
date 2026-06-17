@@ -187,9 +187,9 @@ class ReportController extends Controller
         return 'Unknown Location';
     }
 
-    /**
-     * Export a report as PDF.
-     */
+/**
+      * Export a report as PDF.
+      */
     public function exportPdf(Request $request): \Illuminate\Http\Response
     {
         $request->validate([
@@ -197,7 +197,20 @@ class ReportController extends Controller
         ]);
 
         $normalizedQuery = Str::lower(Str::squish($request->input('location')));
-        $report = Report::where('location_query', $normalizedQuery)->latest()->first();
+
+        // Build query - include user reports if authenticated, or public reports
+        $query = Report::where('location_query', $normalizedQuery);
+
+        if ($userId = auth()->id()) {
+            $query->where(function ($q) use ($userId) {
+                $q->where('user_id', $userId)
+                  ->orWhereNull('user_id');
+            });
+        } else {
+            $query->whereNull('user_id');
+        }
+
+        $report = $query->latest()->first();
 
         if (!$report) {
             abort(404, 'Report not found. Generate a report first.');

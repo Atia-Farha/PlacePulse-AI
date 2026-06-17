@@ -139,9 +139,6 @@
             </div>
         </div>
     </nav>
-    </div>
-    </div>
-    </nav>
 
     <!-- Main Content -->
     <main class="pt-16">
@@ -152,8 +149,8 @@
     <div id="toast" class="toast pointer-events-none">
         <div
             class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-3 shadow-xl flex items-center gap-3 w-full max-w-sm sm:max-w-md pointer-events-auto">
-            <div id="toastIcon" class="flex-shrink-0"></div>
-            <p id="toastMessage" class="text-xs text-slate-700 dark:text-slate-350 font-sans leading-normal"></p>
+            <div id="toastIcon" class="shrink-0"></div>
+            <p id="toastMessage" class="text-xs text-slate-700 dark:text-slate-300 font-sans leading-normal"></p>
         </div>
     </div>
 

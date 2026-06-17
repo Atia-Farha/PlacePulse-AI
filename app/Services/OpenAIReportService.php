@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Log;
 class OpenAIReportService
 {
     /**
-     * The JSON schema that GPT must follow for structured output.
-     */
+      * The JSON schema that GPT must follow for structured output.
+      */
     private function getResponseSchema(): array
     {
         return [

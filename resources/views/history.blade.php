@@ -22,22 +22,22 @@
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded p-12 text-center max-w-md mx-auto mt-12">
             <h3 class="text-sm font-bold uppercase tracking-wider text-slate-800 dark:text-white">Empty History Log</h3>
             <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 mb-6 font-light">No entries found. Compile your first analytical scan from the control panel.</p>
-            <a href="{{ route('home') }}" class="inline-flex items-center justify-center px-4 py-2 border border-slate-350 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-xs font-mono uppercase tracking-wider rounded hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer">
+            <a href="{{ route('home') }}" class="inline-flex items-center justify-center px-4 py-2 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-xs font-mono uppercase tracking-wider rounded hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer">
                 Run Engine
             </a>
         </div>
-    @else
+@else
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach($reports as $report)
                 @php
                     $data = $report->report_data;
-                    $title = $data['title'] ?? ($data['hero']['title'] ?? 'Location Report');
-                    $catchphrase = $data['soul']['key_takeaway'] ?? ($data['soul']['summary'] ?? 'Dossier Entry');
+                    $title = $data['title'] ?? 'Location Report';
+                    $catchphrase = Str::limit($data['soul'] ?? 'Dossier Entry', 80);
                 @endphp
                 <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded p-6 flex flex-col justify-between hover:border-primary-400 dark:hover:border-primary-800 transition-all duration-200 group" id="report-card-{{ $report->id }}">
                     <div>
                         <!-- Location & Date -->
-                        <div class="flex items-center justify-between text-[10px] font-mono uppercase tracking-wider text-slate-450 dark:text-slate-500 mb-4 pb-3 border-b border-slate-100 dark:border-slate-800/60">
+                        <div class="flex items-center justify-between text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4 pb-3 border-b border-slate-100 dark:border-slate-800/60">
                             <span class="inline-flex items-center gap-1">
                                 <svg class="w-3.5 h-3.5 text-primary-600" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -60,7 +60,7 @@
                     </div>
 
                     <!-- Actions -->
-                    <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-850">
+                    <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
                         <a href="{{ route('home') }}?load_report_id={{ $report->id }}" class="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-primary-600 hover:text-primary-700 font-bold transition-colors cursor-pointer">
                             <span>Open Log</span>
                             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
@@ -71,7 +71,7 @@
                         <button
                             type="button"
                             data-delete-report-id="{{ $report->id }}"
-                            class="delete-report-btn w-7 h-7 rounded border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-400 hover:text-rose-550 dark:hover:text-rose-400 hover:bg-rose-500/5 dark:hover:bg-rose-500/10 transition-all cursor-pointer"
+                            class="delete-report-btn w-7 h-7 rounded border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-400 hover:text-rose-500 dark:hover:text-rose-400 hover:bg-rose-500/5 dark:hover:bg-rose-500/10 transition-all cursor-pointer"
                             title="Delete Dossier"
                         >
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
