@@ -265,7 +265,7 @@ function renderReport(data, location) {
     if (historyEl && data.history) {
         historyEl.innerHTML = data.history.map((item, i) => `
             <div class="relative pl-2">
-                <div class="absolute w-2.5 h-2.5 rounded-full bg-primary-500 -left-[21.5px] top-1.5 border-2 border-white dark:border-slate-900"></div>
+                <div class="absolute w-2.5 h-2.5 rounded-full bg-primary-500 left-[-21.5px] top-1.5 border-2 border-white dark:border-slate-900"></div>
                 <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-2">
                     <span class="px-2 py-0.5 border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 rounded text-xs font-mono uppercase text-slate-700 dark:text-slate-300 w-fit">
                         ${escapeHtml(item.year)}
@@ -328,7 +328,7 @@ function renderReport(data, location) {
             const iconSvg = tipIcons[category] || tipIcons.other;
             return `
                 <div class="flex items-start gap-3.5 py-3.5 first:pt-0 last:pb-0 border-b border-slate-200 dark:border-slate-800 last:border-none">
-                    <div class="flex-shrink-0 w-8 h-8 rounded bg-primary-50 dark:bg-primary-950/35 text-primary-600 flex items-center justify-center">
+                    <div class="shrink-0 w-8 h-8 rounded bg-primary-50 dark:bg-primary-950/35 text-primary-600 flex items-center justify-center">
                         ${iconSvg}
                     </div>
                     <div>
@@ -345,7 +345,7 @@ function renderReport(data, location) {
     if (factsEl && data.fun_facts) {
         factsEl.innerHTML = data.fun_facts.map(fact => `
             <div class="border border-slate-200 dark:border-slate-800 rounded-lg p-5 bg-slate-50/20 dark:bg-slate-900/10 hover:border-primary-500 dark:hover:border-primary-800 transition-all duration-200 flex items-start gap-3">
-                <span class="w-1.5 h-1.5 rounded-full bg-primary-500 mt-2 flex-shrink-0"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-primary-500 mt-2 shrink-0"></span>
                 <p class="text-sm text-slate-600 dark:text-slate-400 font-light leading-relaxed">${escapeHtml(fact)}</p>
             </div>
         `).join('');

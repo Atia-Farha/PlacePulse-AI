@@ -4,7 +4,7 @@
 
 PlacePulse AI turns any place into a structured cultural intelligence dossier. Scan your coordinates or search manually — the Location Intelligence Agent synthesizes history, must-visit spots, local flavors, practical tips, and fun facts into a polished, scrollable report you can save and export as PDF.
 
-Built for the **Codex Community Challenge** with agentic development patterns ([AGENTS.md](AGENTS.md), [skills.md](skills.md)) and meaningful OpenAI platform integration.
+Built for the **Codex Community Challenge** with agentic development patterns ([AGENTS.md](AGENTS.md), [SKILLS.md](SKILLS.md)) and meaningful OpenAI platform integration.
 
 ## Table of Contents
 
@@ -228,7 +228,7 @@ Reports must render reliably in Blade templates and PDF exports. A strict JSON s
 | Artifact     | Role                                                                                             |
 | ------------ | ------------------------------------------------------------------------------------------------ |
 | `AGENTS.md`  | Documents runtime Location Intelligence Agent architecture, Mermaid workflows, and configuration |
-| `skills.md`  | Defines geocoding, structured dossier synthesis, PDF layout, and UI skills                       |
+| `SKILLS.md`  | Defines geocoding, structured dossier synthesis, PDF layout, and UI skills                       |
 | Codex agents | Co-engineered the Laravel app using agentic pair programming patterns                            |
 
 ### Architecture
@@ -238,7 +238,7 @@ Reports must render reliably in Blade templates and PDF exports. A strict JSON s
 ![PlacePulse AI Workflow](./docs/diagrams/PlacePulse-AI-Workflow.png)
 
 See [AGENTS.md](./AGENTS.md) for the runtime agent persona, workflow diagrams, and configuration reference.
-See [skills.md](./skills.md) for geocoding, schema synthesis, and design-time agent capabilities.
+See [SKILLS.md](./SKILLS.md) for geocoding, schema synthesis, and design-time agent capabilities.
 
 ## Project Structure
 
@@ -258,7 +258,7 @@ Dockerfile                        # Production container (Render)
 render.yaml                       # Render Blueprint (free tier)
 docker/render-start.sh            # Migrate, cache, serve
 AGENTS.md                         # Agent architecture (Codex challenge)
-skills.md                         # Agent capabilities (Codex challenge)
+SKILLS.md                         # Agent capabilities (Codex challenge)
 ```
 
 ## Author

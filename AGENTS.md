@@ -118,4 +118,4 @@ The runtime agent properties are defined in the application configuration:
 
 The JSON schema is defined internally in `OpenAIReportService::getResponseSchema()` and passed to the OpenAI Chat Completions endpoint via the `response_format` parameter.
 
-For detailed information on the tools and skills utilized by the agents, please refer to [skills.md](skills.md).
+For detailed information on the tools and skills utilized by the agents, please refer to [SKILLS.md](SKILLS.md).

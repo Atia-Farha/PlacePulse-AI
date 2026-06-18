@@ -1,4 +1,4 @@
-# PlacePulse AI — Agent Capabilities & Skills (skills.md)
+# PlacePulse AI — Agent Capabilities & Skills (SKILLS.md)
 
 This document details the specific capabilities, tools, and skills developed for both the design-time development agents and the runtime intelligence agents in the PlacePulse AI ecosystem.
 
