@@ -218,10 +218,17 @@ function showLoadingState() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// ─── Hide Loading State ───
+function hideLoadingState() {
+    $('#loadingSection')?.classList.add('hidden');
+    $('#heroSection')?.classList.remove('hidden');
+}
+
 // ─── Escape HTML ───
 function escapeHtml(text) {
+    if (text === null || text === undefined) return '';
     const div = document.createElement('div');
-    div.textContent = text;
+    div.textContent = String(text);
     return div.innerHTML;
 }
 
@@ -484,9 +491,4 @@ async function loadReportFromHistory(id) {
         showToast('Retrieval network error', 'error');
         console.error(error);
     }
-}
-
-function hideLoadingState() {
-    $('#loadingSection')?.classList.add('hidden');
-    $('#heroSection')?.classList.remove('hidden');
 }

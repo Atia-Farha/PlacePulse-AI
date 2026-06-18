@@ -33,7 +33,7 @@
             <!-- Input Area -->
             <div class="animate-fade-in-up delay-300 space-y-6">
                 <!-- Scan Location Button -->
-                <button id="scanLocationBtn" type="button"
+                <button id="scanLocationBtn" type="button" aria-label="Scan current geolocation"
                     class="group relative inline-flex items-center gap-2 px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold rounded active:scale-[0.98] transition-all duration-200 cursor-pointer">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -59,11 +59,11 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                         </svg>
-                        <input id="locationInput" type="text" placeholder="City, landmark, or region..."
+                        <input id="locationInput" type="text" aria-label="Enter location to analyze" placeholder="City, landmark, or region..."
                             class="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all"
                             autocomplete="off">
                     </div>
-                    <button id="generateBtn" type="submit"
+                    <button id="generateBtn" type="submit" aria-label="Analyze location"
                         class="px-5 py-3 bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold rounded transition-all duration-200 flex items-center gap-2 justify-center cursor-pointer">
                         Analyze
                     </button>
@@ -226,7 +226,7 @@
         <!-- Action Buttons -->
         <div id="reportActions"
             class="report-section delay-700 flex flex-wrap items-center justify-center gap-4 pt-12 pb-4 border-t border-slate-200 dark:border-slate-800 mt-12">
-            <button id="regenerateBtn" type="button"
+            <button id="regenerateBtn" type="button" aria-label="Regenerate report"
                 class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white text-xs font-mono uppercase tracking-wider rounded transition-all duration-200 cursor-pointer">
                 <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -235,7 +235,7 @@
                 Regenerate
             </button>
 
-            <button id="exportPdfBtn" type="button"
+            <button id="exportPdfBtn" type="button" aria-label="Download PDF report"
                 class="inline-flex items-center gap-2 px-5 py-2.5 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 text-xs font-mono uppercase tracking-wider rounded hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 cursor-pointer">
                 <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -244,7 +244,7 @@
                 Download PDF
             </button>
 
-            <button id="newReportBtn" type="button"
+            <button id="newReportBtn" type="button" aria-label="Create new report"
                 class="inline-flex items-center gap-2 px-5 py-2.5 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 text-xs font-mono uppercase tracking-wider rounded hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 cursor-pointer">
                 <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />

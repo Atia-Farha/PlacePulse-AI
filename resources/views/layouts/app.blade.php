@@ -55,7 +55,7 @@
                             <form action="{{ route('logout') }}" method="POST" class="inline">
                                 @csrf
                                 <button type="submit"
-                                    class="text-xs font-mono uppercase tracking-wider text-slate-400 hover:text-rose-500 dark:hover:text-rose-450 transition-colors cursor-pointer">
+                                    class="text-xs font-mono uppercase tracking-wider text-slate-400 hover:text-rose-500 dark:hover:text-rose-400 transition-colors cursor-pointer">
                                     Logout
                                 </button>
                             </form>
@@ -122,7 +122,7 @@
                     <form action="{{ route('logout') }}" method="POST" class="w-full">
                         @csrf
                         <button type="submit"
-                            class="block w-full text-xs font-mono uppercase tracking-wider text-slate-400 hover:text-rose-500 dark:hover:text-rose-450 transition-colors duration-200 text-center cursor-pointer">
+                            class="block w-full text-xs font-mono uppercase tracking-wider text-slate-400 hover:text-rose-500 dark:hover:text-rose-400 transition-colors duration-200 text-center cursor-pointer">
                             Logout
                         </button>
                     </form>
@@ -146,7 +146,7 @@
     </main>
 
     <!-- Toast Notification -->
-    <div id="toast" class="toast pointer-events-none">
+    <div id="toast" role="alert" aria-live="polite" class="toast pointer-events-none">
         <div
             class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-3 shadow-xl flex items-center gap-3 w-full max-w-sm sm:max-w-md pointer-events-auto">
             <div id="toastIcon" class="shrink-0"></div>

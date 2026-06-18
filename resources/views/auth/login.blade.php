@@ -12,7 +12,7 @@
 
             <!-- Validation Errors -->
             @if ($errors->any())
-                <div class="mb-6 p-4 rounded bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-450 text-xs font-mono">
+                <div class="mb-6 p-4 rounded bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-mono">
                     <ul class="list-disc list-inside space-y-1">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
