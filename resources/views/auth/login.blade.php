@@ -35,7 +35,7 @@
                         value="{{ old('email') }}"
                         required
                         autofocus
-                        class="w-full px-3.5 py-2.5 rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all"
+                        class="w-full px-3.5 py-2.5 rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus-ring focus:border-primary-500 transition-all"
                         placeholder="email@domain.com"
                     >
                 </div>
@@ -48,14 +48,14 @@
                         name="password"
                         id="password"
                         required
-                        class="w-full px-3.5 py-2.5 rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all"
+                        class="w-full px-3.5 py-2.5 rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus-ring focus:border-primary-500 transition-all"
                         placeholder="••••••••"
                     >
                 </div>
 
                 <!-- Remember Me -->
                 <div class="flex items-center justify-between">
-                    <label class="flex items-center gap-2 cursor-pointer select-none">
+                    <label for="remember" class="flex items-center gap-2 cursor-pointer select-none">
                         <input
                             type="checkbox"
                             name="remember"

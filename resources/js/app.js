@@ -42,32 +42,37 @@ function initMobileMenu() {
 
     if (!toggle || !menu) return;
 
+    const openMenu = () => {
+        menu.classList.remove('hidden');
+        menu.style.maxHeight = '0';
+        // Force reflow for smooth transition
+        menu.offsetHeight;
+        menu.style.maxHeight = '300px';
+        iconClosed?.classList.add('hidden');
+        iconOpen?.classList.remove('hidden');
+    };
+
+    const closeMenu = () => {
+        menu.style.maxHeight = '0';
+        iconClosed?.classList.remove('hidden');
+        iconOpen?.classList.add('hidden');
+        // Wait for transition before hiding
+        setTimeout(() => menu.classList.add('hidden'), 300);
+    };
+
     toggle.addEventListener('click', () => {
         const isOpen = !menu.classList.contains('hidden');
-
         if (isOpen) {
-            menu.classList.add('hidden');
-            menu.style.maxHeight = '0';
-            iconClosed.classList.remove('hidden');
-            iconOpen.classList.add('hidden');
+            closeMenu();
         } else {
-            menu.classList.remove('hidden');
-            // For smooth transition
-            setTimeout(() => {
-                menu.style.maxHeight = '300px';
-            }, 10);
-            iconClosed.classList.add('hidden');
-            iconOpen.classList.remove('hidden');
+            openMenu();
         }
     });
 
     // Close menu on resize if screen becomes large
     window.addEventListener('resize', () => {
         if (window.innerWidth >= 768) { // md breakpoint
-            menu.classList.add('hidden');
-            menu.style.maxHeight = '0';
-            iconClosed.classList.remove('hidden');
-            iconOpen.classList.add('hidden');
+            closeMenu();
         }
     });
 }
@@ -79,14 +84,15 @@ function showToast(message, type = 'info') {
     const msg = $('#toastMessage');
 
     const icons = {
-        success: { bg: 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 border border-slate-200 dark:border-slate-800', svg: 'SUCCESS' },
-        error: { bg: 'bg-rose-500 text-white', svg: 'ERROR' },
-        info: { bg: 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-800', svg: 'INFO' },
+        success: { bg: 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 border border-slate-200 dark:border-slate-800', symbol: '✓' },
+        error: { bg: 'bg-rose-500 text-white', symbol: '!' },
+        info: { bg: 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-800', symbol: 'i' },
     };
 
     const config = icons[type] || icons.info;
-    icon.className = `px-2 py-0.5 rounded text-[9px] font-mono ${config.bg} font-bold`;
-    icon.textContent = config.svg;
+    icon.className = `px-2 py-0.5 rounded text-[10px] font-mono ${config.bg} font-bold flex items-center justify-center w-5 h-5`;
+    // Use visually hidden text for screen readers
+    icon.innerHTML = `<span aria-hidden="true">${config.symbol}</span><span class="sr-only">${type.charAt(0).toUpperCase() + type.slice(1)}: ${message}</span>`;
     msg.textContent = message;
 
     toast.classList.add('show');
@@ -106,8 +112,12 @@ async function scanLocation() {
     }
 
     const btn = $('#scanLocationBtn');
+    const btnText = btn?.querySelector('span');
+    
+    if (!btn || !btnText) return;
+
     btn.disabled = true;
-    btn.querySelector('span').textContent = 'Acquiring...';
+    btnText.textContent = 'Acquiring...';
 
     try {
         const position = await new Promise((resolve, reject) => {
@@ -135,7 +145,8 @@ async function scanLocation() {
 
         if (data.success) {
             currentLocation = data.location;
-            $('#locationInput').value = data.location;
+            const input = $('#locationInput');
+            if (input) input.value = data.location;
             showToast(`Target acquired: ${data.location}`, 'success');
             generateReport(data.location);
         } else {
@@ -150,7 +161,7 @@ async function scanLocation() {
         showToast(messages[error.code] || 'Detection failed', 'error');
     } finally {
         btn.disabled = false;
-        btn.querySelector('span').textContent = 'Scan Geolocation';
+        btnText.textContent = 'Scan Geolocation';
     }
 }
 
@@ -240,9 +251,9 @@ function renderReport(data, location) {
     reportSection?.classList.remove('hidden');
 
     // Hero details
-    $('#reportTitle').textContent = data.title || 'Location Report';
-    $('#reportSubtitle').textContent = data.subtitle || '';
-    $('#reportLocation').textContent = location;
+    if (data.title) $('#reportTitle').textContent = data.title;
+    if (data.subtitle) $('#reportSubtitle').textContent = data.subtitle;
+    if (location) $('#reportLocation').textContent = location;
 
     // Soul
     const soulEl = $('#soulContent');
@@ -308,7 +319,7 @@ function renderReport(data, location) {
             'etiquette': `<svg class="w-4 h-4 text-primary-600" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18V6.25c0-.621.504-1.125 1.125-1.125H9.75M10.5 2.25h3a.75.75 0 0 1 .75.75v.75H9.75V3a.75.75 0 0 1 .75-.75Z" /></svg>`,
             'budget': `<svg class="w-4 h-4 text-primary-600" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>`,
             'safety': `<svg class="w-4 h-4 text-primary-600" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" /></svg>`,
-            'transport': `<svg class="w-4 h-4 text-primary-600" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.129-1.125V14.25M3 14.25h18M4.5 14.25l1.5-5.25a1.5 1.5 0 0 1 1.5-1.5h9a1.5 1.5 0 0 1 1.5 1.5l1.5 5.25M6 10.5h12" /></svg>`,
+            'transport': `<svg class="w-4 h-4 text-primary-600" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.129-1.125V14.25M3 14.25h18M4.5 14.25l1.5-5.25a1.5 1.5 0 0 1 1.5-1.5h9a1.5 1.5 0 0 1 1.5 1.5l1.5 5.25M6 10.5h12" /></svg>`,
             'other': `<svg class="w-4 h-4 text-primary-600" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" /></svg>`
         };
 

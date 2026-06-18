@@ -142,3 +142,59 @@ body {
 .report-section.visible {
     animation: fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+/* ─── Line Clamp Utilities ─── */
+.line-clamp-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+/* ─── Grid Overlay for Hero ─── */
+.grid-overlay {
+    background-image: 
+        linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+        linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+    background-size: 4rem 4rem;
+}
+.dark .grid-overlay {
+    background-image: 
+        linear-gradient(to right, #1e293b 1px, transparent 1px),
+        linear-gradient(to bottom, #1e293b 1px, transparent 1px);
+}
+.grid-overlay {
+    mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, #000 70%, transparent 100%);
+}
+
+/* ─── Screen Reader Only ─── */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ─── Focus Rings for Accessibility ─── */
+.focus-ring {
+    outline: none;
+}
+.focus-ring:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #4f46e5;
+}
+.dark .focus-ring:focus {
+    box-shadow: 0 0 0 2px #0f172a, 0 0 0 4px #6366f1;
+}

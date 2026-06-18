@@ -6,7 +6,7 @@
         class="relative min-h-[85vh] flex items-center justify-center py-20 px-4 border-b border-slate-200/60 dark:border-slate-800/60 bg-white dark:bg-slate-950">
         <!-- Clean grid line overlay for tech/architectural feel -->
         <div
-            class="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-30 dark:opacity-20 pointer-events-none">
+            class="absolute inset-0 grid-overlay opacity-30 dark:opacity-20 pointer-events-none">
         </div>
 
         <div class="relative z-10 text-center px-4 max-w-3xl mx-auto">
@@ -60,7 +60,7 @@
                                 d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                         </svg>
                         <input id="locationInput" type="text" aria-label="Enter location to analyze" placeholder="City, landmark, or region..."
-                            class="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all"
+                            class="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus-ring transition-all"
                             autocomplete="off">
                     </div>
                     <button id="generateBtn" type="submit" aria-label="Analyze location"
@@ -73,7 +73,7 @@
     </section>
 
     <!-- ═══════════════ LOADING STATE ═══════════════ -->
-    <section id="loadingSection" class="hidden py-24 px-4 bg-slate-50 dark:bg-slate-950">
+    <section id="loadingSection" class="hidden py-24 px-4 bg-slate-50 dark:bg-slate-950" aria-live="polite">
         <div class="max-w-4xl mx-auto text-center">
             <!-- Spinner -->
             <div
