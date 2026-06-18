@@ -11,13 +11,13 @@ At runtime, PlacePulse AI orchestrates a specialized agent powered by OpenAI mod
 ```mermaid
 graph TD
     User([User Request / Geolocation]) --> Controller[ReportController]
-    Controller --> Agent[Location Intelligence Agent]
-    Agent -->|System Instructions & Persona| PromptBuilder[Prompt Builder]
-    Agent -->|Structured Output Schema| SchemaValidator[JSON Schema Validator]
-    SchemaValidator --> OpenAI[OpenAI Chat Completion API]
-    OpenAI -->|Validated JSON Response| Dossier[Structured Dossier Result]
-    Dossier --> Cache[Cache Layer]
-    Dossier --> View[Frontend Blade View]
+    Controller --> Service[OpenAIReportService]
+    Service -->|System Prompt + Schema| OpenAI[OpenAI Chat Completion API]
+    OpenAI -->|Structured JSON Response| Service
+    Service -->|Decoded Report| Controller
+    Controller --> Cache[SQLite Cache]
+    Controller --> View[Frontend Blade View]
+    Controller --> PDF[DomPDF Export]
 ```
 
 ### Agent Persona & System Instructions
@@ -29,6 +29,31 @@ graph TD
     - Uncover lesser-known local stories rather than generic tourist highlights.
     - Formulate precise, actionable practical guidelines.
     - Maintain absolute compliance with the defined JSON response schema.
+
+### API Response Format
+
+The `/api/generate-report` endpoint returns JSON with the following structure:
+
+```json
+{
+  "success": true,
+  "cached": false,
+  "data": { /* full location report object */ },
+  "location": "Location Name"
+}
+```
+
+The `fresh` query parameter (boolean) bypasses the cache to force a new AI generation.
+
+### Database Schema
+
+The `reports` table stores report data with the following columns:
+- `id`: Primary key
+- `user_id`: Foreign key to users table (nullable for public reports)
+- `location_query`: Normalized query string for deduplication
+- `location_display`: Human-readable location name
+- `report_data`: JSON column storing the full report payload
+- `created_at`, `updated_at`: Timestamps
 
 ---
 
@@ -68,17 +93,29 @@ sequenceDiagram
     Browser->>User: Render Dossier UI with smooth transitions
 ```
 
+### Additional API Endpoints
+
+| Endpoint | Method | Purpose |
+| -------- | ------ | ------- |
+| `/api/generate-report` | POST | Generate or retrieve cached location report |
+| `/api/reverse-geocode` | POST | Convert coordinates to place name via Nominatim |
+| `/api/export-pdf` | GET | Export report as formatted PDF |
+| `/api/history/{id}` | GET | Retrieve saved report by ID |
+| `/api/history/{id}` | DELETE | Delete saved report (authenticated users) |
+
 ---
 
 ## 4. Agent Configuration & Environment
 
 The runtime agent properties are defined in the application configuration:
 
-| Parameter            | Configuration Key       | Default Value | Description                                                             |
-| -------------------- | ----------------------- | ------------- | ----------------------------------------------------------------------- |
-| **Model**            | `openai.model`          | `gpt-5-mini`  | The OpenAI model executing the agent analysis.                          |
-| **Strict Schema**    | `response_format`       | `json_schema` | Enforces structured outputs on the OpenAI endpoint.                     |
-| **Token Limit**      | `max_completion_tokens` | `8000`        | Completion budget for structured JSON (reasoning models need headroom). |
-| **Reasoning Effort** | `reasoning_effort`      | `low`         | Reduces internal reasoning token use so output is not truncated.        |
+| Parameter            | Configuration Key              | Default Value | Description                                                             |
+| -------------------- | ---------------------------- | ------------- | ----------------------------------------------------------------------- |
+| **Model**            | `openai.model`               | `gpt-5-mini`  | The OpenAI model executing the agent analysis.                          |
+| **Token Limit**      | `openai.max_completion_tokens` | `8000`        | Completion budget for structured JSON (reasoning models need headroom).    |
+| **Reasoning Effort** | `openai.reasoning_effort`       | `low`         | Reduces internal reasoning token use so output is not truncated.          |
+| **Request Timeout**  | `openai.request_timeout`          | `120`         | Maximum seconds to wait for OpenAI API response.                          |
+
+The JSON schema is defined internally in `OpenAIReportService::getResponseSchema()` and passed to the OpenAI Chat Completions endpoint via the `response_format` parameter.
 
 For detailed information on the tools and skills utilized by the agents, please refer to [skills.md](skills.md).

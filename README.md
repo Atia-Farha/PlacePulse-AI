@@ -4,7 +4,7 @@
 
 PlacePulse AI turns any place into a structured cultural intelligence dossier. Scan your coordinates or search manually — the Location Intelligence Agent synthesizes history, must-visit spots, local flavors, practical tips, and fun facts into a polished, scrollable report you can save and export as PDF.
 
-Built for the **Codex Community Challenge** with agenticdevelopment patterns ([AGENTS.md](AGENTS.md), [skills.md](skills.md)) and meaningful OpenAI platform integration.
+Built for the **Codex Community Challenge** with agentic development patterns ([AGENTS.md](AGENTS.md), [skills.md](skills.md)) and meaningful OpenAI platform integration.
 
 ## Table of Contents
 
@@ -36,7 +36,6 @@ Built for the **Codex Community Challenge** with agenticdevelopment patterns ([A
     - [How was OpenAI integrated into the solution?](#how-was-openai-integrated-into-the-solution)
     - [Agentic development](#agentic-development)
     - [Architecture](#architecture)
-    - [Agentic development](#agentic-development-1)
   - [Project Structure](#project-structure)
   - [Author](#author)
 
@@ -70,11 +69,11 @@ https://www.loom.com/share/96c11e96a6184cbf82c1b512bf94eb0e
 ## Tech Stack
 
 - **Backend:** Laravel 13, PHP 8.3+
-- **Frontend:** Blade, Tailwind CSS 4, Vite
+- **Frontend:** Blade, Tailwind CSS 4, Vite, Inter font
 - **AI:** OpenAI Chat Completions (`gpt-5-mini`) via `openai-php/laravel`
 - **Geocoding:** OpenStreetMap Nominatim (no API key required)
 - **Database:** SQLite
-- **Cache:** Redis
+- **Cache:** Redis (production via Upstash, database cache in local dev)
 - **PDF:** DomPDF
 
 ## Requirements
@@ -172,7 +171,7 @@ php artisan serve
 
 ![Screenshot of Report Page](./docs/screenshots/Screenshot-Report-Page.png)
 
-![Screenshot of Report PDF](./docs/screenshots/Screenshot-History-Page.png)
+![Screenshot of History Page](./docs/screenshots/Screenshot-History-Page.png)
 
 ## Problem & Impact
 
@@ -238,16 +237,8 @@ Reports must render reliably in Blade templates and PDF exports. A strict JSON s
 
 ![PlacePulse AI Workflow](./docs/diagrams/PlacePulse-AI-Workflow.png)
 
-See [AGENTS.md](./AGENTS.md) for the runtime agent persona, workflow diagrams, and configuration reference.  
+See [AGENTS.md](./AGENTS.md) for the runtime agent persona, workflow diagrams, and configuration reference.
 See [skills.md](./skills.md) for geocoding, schema synthesis, and design-time agent capabilities.
-
-### Agentic development
-
-| Artifact     | Role                                                                                             |
-| ------------ | ------------------------------------------------------------------------------------------------ |
-| `AGENTS.md`  | Documents runtime Location Intelligence Agent architecture, Mermaid workflows, and configuration |
-| `skills.md`  | Defines geocoding, structured dossier synthesis, PDF layout, and UI skills                       |
-| Codex agents | Co-engineered the Laravel app using agentic pair programming patterns                            |
 
 ## Project Structure
 
